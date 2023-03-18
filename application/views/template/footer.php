@@ -119,6 +119,43 @@
 		$("#kel_pemilihedit").load(url);
 	});
 
+	$(".kelts").change(function(){
+		var val = $(this).val();
+		var url = "<?= base_url('app/gettps?id=') ?>"+val;
+		$("#gettps").load(url);
+	});
+
+	$("#dapileditts").change(function(){
+		var valdapil = $("#dapileditts").val();
+		var urlgetkecdapil = "<?= base_url('app/get_kecdapil?id=') ?>"+valdapil;
+		$("#kecdapileditts").load(urlgetkecdapil);
+	});
+
+	$("#kecdapileditts").change(() => {
+		var idkec = $("#kecdapileditts").val();
+		var urlkel = "<?= base_url('app/get_keldapil?id=') ?>"+idkec;
+		$("#keldapileditts").load(urlkel);
+	})
+
+	$(".keltseditts").change(function(){
+		var val = $(this).val();
+		var url = "<?= base_url('app/gettps?id=') ?>"+val;
+		$("#gettpseditts").load(url);
+	});
+
+
+</script>
+
+<script>
+	function previewImage() {
+		document.getElementById("image-preview").style.display = "block";
+		var oFReader = new FileReader();
+		oFReader.readAsDataURL(document.getElementById("image-source").files[0]);
+
+		oFReader.onload = function(oFREvent) {
+			document.getElementById("image-preview").src = oFREvent.target.result;
+		};
+	};
 </script>
 
 

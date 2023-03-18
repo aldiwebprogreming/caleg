@@ -392,15 +392,28 @@
 		}
 
 		function act_addtps(){
-			$data = [
-				'kode_dapil' => $this->input->post('kode_dapil'),
-				'kec' => $this->input->post('kec'),
-				'kel' => $this->input->post('kel'),
-				'alamat' => $this->input->post('alamat'),
-				'tps' => $this->input->post('tps'),
-			];
 
-			$this->db->insert('tbl_tps', $data);
+			$jml = $this->input->post('tps');
+			for ($i=1; $i <= $jml ; $i++) { 
+
+				if ($i > 9) {
+					$kode = "0".$i;
+				}else{
+
+					$kode = "00".$i;
+				};
+				
+				$data = [
+					'kode_dapil' => $this->input->post('kode_dapil'),
+					'kec' => $this->input->post('kec'),
+					'kel' => $this->input->post('kel'),
+					'alamat' => $this->input->post('alamat'),
+					'tps' => $kode,
+				];
+				$this->db->insert('tbl_tps', $data);
+
+			}
+
 			$this->session->set_flashdata('message', 'swal("Yess", "Data berhasil ditambah", "success");');
 			redirect('app/data_tps');
 		}
@@ -588,6 +601,162 @@
 			$this->db->delete('tbl_user_relawan');
 			$this->session->set_flashdata('message', 'swal("Yess", "Data berhasil dihapus", "success");');
 			redirect('app/user_relawan');
+		}
+
+
+		function tim_sukses(){
+			$data['ts'] = $this->db->get_where('tbl_ts', ['kode_caleg' => $this->session->kode])->result_array();
+			$data['dapil'] = $this->db->get('tbl_dapil')->result_array();
+			$this->load->view('template/header');
+			$this->load->view('app/data_ts', $data);
+			$this->load->view('template/footer'); 
+		}
+
+
+		function gettps(){
+
+			$id = $this->input->get('id');
+			$data['tps'] = $this->db->get_where('tbl_tps', ['kel' => $id])->result_array();
+			$this->load->view('app/get_tps', $data);
+		}
+
+		function act_addts(){
+
+			$config['upload_path']          = './assets/berkas';
+			$config['allowed_types']        = 'jpg|png|jpeg';
+			$config['min_size']             = 9000000;
+			$config['remove_spaces']        = false;
+			$config['encrypt_name'] 		= true;
+
+
+			$this->load->library('upload', $config);
+			if (!$this->upload->do_upload("foto")){
+				$error = array('error' => $this->upload->display_errors());
+				$this->session->set_flashdata('message', 'swal("Oops", "Ada kesalahan dalam upload gambar", "warning" );');
+				redirect('app/tim_sukses');
+
+			}else{
+				$img = array('upload_data' => $this->upload->data());
+				$new_name = $img['upload_data']['file_name'];
+
+				$data = [
+					'kode_caleg' => $this->session->kode,
+					'kode_ts' => "TS-". rand(0, 10000),
+					'nama' => $this->input->post('nama'),
+					'alamat_ts' => $this->input->post('alamat_ts'),
+					'nohp' => $this->input->post('nohp'),
+					'nik' => $this->input->post('nik'),
+					'foto' => $new_name,
+					'dapil' => $this->input->post('dapil'),
+					'kec' => $this->input->post('kec'),
+					'kel' => $this->input->post('kel'),
+					'tps' => $this->input->post('tps'),
+					'username' => $this->input->post('username'),
+					'pass' => password_hash($this->input->post('pass'), PASSWORD_DEFAULT),
+				];
+
+				$this->db->insert('tbl_ts', $data);
+				$this->session->set_flashdata('message', 'swal("Yess", "Data berhasil ditambah", "success");');
+				redirect('app/tim_sukses');
+			}
+
+		}
+
+		function act_editts(){
+
+			$id = $this->input->post('id');
+			$foto = $_FILES['foto']['name'];
+
+			if ($foto !== '') {
+				
+				$config['upload_path']          = './assets/berkas';
+				$config['allowed_types']        = 'jpg|png|jpeg';
+				$config['min_size']             = 9000000;
+				$config['remove_spaces']        = false;
+				$config['encrypt_name'] 		= true;
+
+
+				$this->load->library('upload', $config);
+				if (!$this->upload->do_upload("foto")){
+					$error = array('error' => $this->upload->display_errors());
+					$this->session->set_flashdata('message', 'swal("Oops", "Ada kesalahan dalam upload gambar", "warning" );');
+					redirect('app/tim_sukses');
+
+				}else{
+					$img = array('upload_data' => $this->upload->data());
+					$new_name = $img['upload_data']['file_name'];
+
+					$data = [
+						'nama' => $this->input->post('nama'),
+						'alamat_ts' => $this->input->post('alamat_ts'),
+						'nohp' => $this->input->post('nohp'),
+						'nik' => $this->input->post('nik'),
+						'foto' => $new_name,
+						'dapil' => $this->input->post('dapil'),
+						'kec' => $this->input->post('kec'),
+						'kel' => $this->input->post('kel'),
+						'tps' => $this->input->post('tps'),
+						'username' => $this->input->post('username'),
+						'pass' => password_hash($this->input->post('pass'), PASSWORD_DEFAULT),
+					];
+
+					$this->db->where('id', $id);
+					$this->db->update('tbl_ts', $data);
+
+					$this->session->set_flashdata('message', 'swal("Yess", "Data berhasil diubah", "success");');
+					redirect('app/tim_sukses');
+
+				}
+
+
+			}else{
+
+				$data = [
+					'nama' => $this->input->post('nama'),
+					'alamat_ts' => $this->input->post('alamat_ts'),
+					'nohp' => $this->input->post('nohp'),
+					'nik' => $this->input->post('nik'),
+					// 'foto' => $new_name,
+					'dapil' => $this->input->post('dapil'),
+					'kec' => $this->input->post('kec'),
+					'kel' => $this->input->post('kel'),
+					'tps' => $this->input->post('tps'),
+					'username' => $this->input->post('username'),
+					'pass' => password_hash($this->input->post('pass'), PASSWORD_DEFAULT),
+				];
+
+				$this->db->where('id', $id);
+				$this->db->update('tbl_ts', $data);
+
+				$this->session->set_flashdata('message', 'swal("Yess", "Data berhasil diubah", "success");');
+				redirect('app/tim_sukses');
+
+			}
+
+		}
+
+
+		function act_hapusts(){
+
+			$id = $this->input->post('id');
+			$this->db->where('id', $id);
+			$this->db->delete('tbl_ts');
+			$this->session->set_flashdata('message', 'swal("Yess", "Data berhasil dihapus", "success");');
+			redirect('app/tim_sukses');
+		}
+
+
+		function profil(){
+			
+			$kode = $this->session->kode;
+			$data['profil'] = $this->db->get_where('tbl_profil', ['kode_caleg' => $kode])->row_array();
+			$data['dapil'] = $this->db->get_where('tbl_dapil')->result_array();
+
+			$this->load->view('template/header');
+			$this->load->view('app/profil', $data);
+			$this->load->view('template/footer');
+
+
 		}
 
 
