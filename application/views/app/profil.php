@@ -24,7 +24,7 @@
             Untuk saat ini profil anda masih kosong, mohon untuk mengisi data profil anda dengan lengkap dan benar.
           </div>
         <?php }else{ ?>
-
+          <form method="post" action="<?= base_url('app/act_porfil') ?>" enctype="multipart/form-data"></form>
           <div class="row">
             <div class="col-sm-6">
               <div class="form-group">
@@ -82,7 +82,23 @@
                 </select>
               </div>
             </div>
+            <div class="col-sm-6">
+              <label>Visi</label>
+              <div class="form-group">
+                <textarea class="form-control" name="visi" required></textarea>
+              </div>
+            </div>
+
+            <div class="col-sm-6">
+              <label>Misi</label>
+              <div class="form-group">
+                <textarea class="form-control" name="misi" required></textarea>
+              </div>
+            </div> 
+
+
           </div>
+          <input type="submit" name="kirim" class="btn btn-primary" value="Simpan profil">
         <?php } ?>
       </div>
     </div>
