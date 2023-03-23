@@ -788,7 +788,7 @@
 					'misi' =>$this->input->post('misi'),
 				];
 
-				$this->db->insert('tbl-profil', $data);
+				$this->db->insert('tbl_profil', $data);
 				$this->session->set_flashdata('message', 'swal("Yess", "Profil anda berhasil di buat", "success" );');
 				redirect('app/profil');
 			}
