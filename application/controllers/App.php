@@ -795,6 +795,72 @@
 
 		}
 
+		function act_editprofil(){
+
+			$id = $this->input->post('id');
+			$foto = $_FILES['foto']['name'];
+
+			if ($foto !== '') {
+				
+				$config['upload_path']          = './assets/profil';
+				$config['allowed_types']        = 'jpg|png|jpeg';
+				$config['min_size']             = 9000000;
+				$config['remove_spaces']        = false;
+				$config['encrypt_name'] 		= true;
+
+
+				$this->load->library('upload', $config);
+				if (!$this->upload->do_upload("foto")){
+					$error = array('error' => $this->upload->display_errors());
+					$this->session->set_flashdata('message', 'swal("Oops", "Ada kesalahan dalam upload gambar", "warning" );');
+					redirect('app/profil');
+
+				}else{
+					$img = array('upload_data' => $this->upload->data());
+					$new_name = $img['upload_data']['file_name'];
+
+					$data = [
+						'kode_caleg' => $this->session->kode,
+						'Nama_lengkap' => $this->input->post('nama_lengkap'),
+						'jk' => $this->input->post('jk'),
+						'umur' => $this->input->post('umur'),
+						'alamat' => $this->input->post('alamat'),
+						'pendidikan' => $this->input->post('pendidikan'),
+						'foto' => $new_name,
+						'visi' => $this->input->post('visi'),
+						'misi' =>$this->input->post('misi'),
+					];
+
+					$this->db->where('id', $id);
+					$this->db->update('tbl_profil', $data);
+
+					$this->session->set_flashdata('message', 'swal("Yess", "Data berhasil diubah", "success");');
+					redirect('app/profil');
+				}
+
+			}else{
+
+				$data = [
+					'kode_caleg' => $this->session->kode,
+					'Nama_lengkap' => $this->input->post('nama_lengkap'),
+					'jk' => $this->input->post('jk'),
+					'umur' => $this->input->post('umur'),
+					'alamat' => $this->input->post('alamat'),
+					'pendidikan' => $this->input->post('pendidikan'),
+					'visi' => $this->input->post('visi'),
+					'misi' =>$this->input->post('misi'),
+				];
+
+				$this->db->where('id', $id);
+				$this->db->update('tbl_profil', $data);
+
+				$this->session->set_flashdata('message', 'swal("Yess", "Data berhasil diubah", "success");');
+				redirect('app/profil');
+
+			}
+
+		}
+
 
 	}
 

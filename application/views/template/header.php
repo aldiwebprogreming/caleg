@@ -71,68 +71,82 @@
               <!-- User Account: style can be found in dropdown.less -->
               <li class="dropdown user user-menu">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                  <img src="<?= base_url('assets/') ?>dist/img/caleg.png" class="user-image" alt="User Image">
-                  <span class="hidden-xs"> <?=  ucfirst($this->session->username) ?></span>
-                </a>
-                <ul class="dropdown-menu">
-                  <!-- User image -->
-                  <li class="user-header">
-                    <img src="<?= base_url('assets/') ?>dist/img/caleg.png" class="img-circle" alt="User Image">
-
-                    <p>
-                     <?= ucfirst($this->session->username) ?>
-                     <?php 
-
-                     $kode_caleg = $this->session->kode;
-                     $dapil = $this->db->get_where('tbl_caleg', ['kode' => $kode_caleg])->row_array();
-                     
-                     if ($dapil['dapil'] == 'DP-01') {
-                      $dp = 'Dapil 1';
-                    }elseif ($dapil['dapil'] == 'DP-02') {
-                      $dp = 'Dapil 2';
-                    }elseif ($dapil['dapil'] == 'DP-03') {
-                      $dp = 'Dapil 3';
-                    }elseif ($dapil['dapil'] == 'DP-04') {
-                      $dp = 'Dapil 4';
-                    }elseif ($dapil['dapil'] == 'DP-05') {
-                      $dp = 'Dapil 5';
-                    }else{
-                     $dp = 'Dapil 6';
-                   }
-                   ?>
-                   <small>
-                    <?php 
-                    if ($this->session->relawan == true) {
-                      echo "Relawan - ";
-                    }else{
-                      echo "Caleg - ";
-                    }
+                  <?php   
+                  $profil = $this->db->get_where('tbl_profil', ['kode_caleg' => $this->session->kode])->row_array();
+                  if ($profil == null) {
                     ?>
-                    <?= $dp ?>
-
-                  </small>
-                </p>
-              </li>
-              <!-- Menu Body -->
-
-              <!-- Menu Footer-->
-              <li class="user-footer">
-                <div class="pull-left">
-                  <a href="#" class="btn btn-default btn-flat">Profile</a>
-                </div>
-                <div class="pull-right">
+                    <img src="<?= base_url('assets/') ?>dist/img/caleg.png" class="user-image" alt="User Image">
+                  <?php   }else{ ?>
+                   <img src="<?= base_url('assets/') ?>profil/<?= $profil['foto'] ?>" class="user-image" alt="<?= $profil['foto'] ?>">
+                 <?php   } ?>
+                 <span class="hidden-xs"> <?=  ucfirst($this->session->username) ?></span>
+               </a>
+               <ul class="dropdown-menu">
+                <!-- User image -->
+                <li class="user-header">
                  <?php 
-                 if ($this->session->relawan == true) {
+                 if ($profil == null) {
+                   ?>
+                   <img src="<?= base_url('assets/') ?>dist/img/caleg.png" class="img-circle" alt="User Image">
+                 <?php   }else{ ?>
+                   <img src="<?= base_url('assets/') ?>profil/<?= $profil['foto'] ?>" class="img-circle" alt="<?= $profil['foto'] ?>">
+                 <?php   } ?>
+                 
+
+                 <p>
+                   <?= ucfirst($this->session->username) ?>
+                   <?php 
+
+                   $kode_caleg = $this->session->kode;
+                   $dapil = $this->db->get_where('tbl_caleg', ['kode' => $kode_caleg])->row_array();
+
+                   if ($dapil['dapil'] == 'DP-01') {
+                    $dp = 'Dapil 1';
+                  }elseif ($dapil['dapil'] == 'DP-02') {
+                    $dp = 'Dapil 2';
+                  }elseif ($dapil['dapil'] == 'DP-03') {
+                    $dp = 'Dapil 3';
+                  }elseif ($dapil['dapil'] == 'DP-04') {
+                    $dp = 'Dapil 4';
+                  }elseif ($dapil['dapil'] == 'DP-05') {
+                    $dp = 'Dapil 5';
+                  }else{
+                   $dp = 'Dapil 6';
+                 }
+                 ?>
+                 <small>
+                  <?php 
+                  if ($this->session->relawan == true) {
+                    echo "Relawan - ";
+                  }else{
+                    echo "Caleg - ";
+                  }
                   ?>
-                  <a href="<?= base_url('login/logout_relawan') ?>" class="btn btn-default btn-flat">Sign out</a>
-                <?php }else{ ?>
-                 <a href="<?= base_url('login/logout') ?>" class="btn btn-default btn-flat">Sign out</a>
-               <?php } ?>
-             </div>
-           </li>
-         </ul>
-       </li>
-       <!-- Control Sidebar Toggle Button -->
+                  <?= $dp ?>
+
+                </small>
+              </p>
+            </li>
+            <!-- Menu Body -->
+
+            <!-- Menu Footer-->
+            <li class="user-footer">
+              <div class="pull-left">
+                <a href="<?= base_url('app/profil') ?>" class="btn btn-default btn-flat">Profile</a>
+              </div>
+              <div class="pull-right">
+               <?php 
+               if ($this->session->relawan == true) {
+                ?>
+                <a href="<?= base_url('login/logout_relawan') ?>" class="btn btn-default btn-flat">Sign out</a>
+              <?php }else{ ?>
+               <a href="<?= base_url('login/logout') ?>" class="btn btn-default btn-flat">Sign out</a>
+             <?php } ?>
+           </div>
+         </li>
+       </ul>
+     </li>
+     <!-- Control Sidebar Toggle Button -->
               <!-- <li>
                 <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
               </li> -->
