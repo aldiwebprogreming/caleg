@@ -67,7 +67,9 @@
               <div class="col-sm-6">
                 <label>Foto</label>
                 <div class="form-group">
-                  <input type="file" name="foto" class="form-control">
+                  <input type="file" name="foto" class="form-control" id="image-sourceprofil" onchange="previewImageProfil();"/ >
+
+                  <img id="image-previewprofil" src="<?= base_url('assets/profil/') ?><?= $profil['foto'] ?>" alt="foto" class="img-thumbnail" style="height: 200px; width: 200px;" >
                 </div>
               </div>
               <div class="col-sm-6">
@@ -167,6 +169,7 @@
               <label>Foto</label>
               <div class="form-group">
                 <input type="file" name="foto" class="form-control">
+
               </div>
             </div>
             <div class="col-sm-6">

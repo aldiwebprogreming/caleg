@@ -807,8 +807,7 @@
 				$config['min_size']             = 9000000;
 				$config['remove_spaces']        = false;
 				$config['encrypt_name'] 		= true;
-
-
+				
 				$this->load->library('upload', $config);
 				if (!$this->upload->do_upload("foto")){
 					$error = array('error' => $this->upload->display_errors());
@@ -858,6 +857,141 @@
 				redirect('app/profil');
 
 			}
+
+		}
+
+
+		function data_saksi(){
+			$data['saksi'] = $this->db->get_where('tbl_saksi', ['kode_caleg' => $this->session->kode])->result_array();
+			$data['dapil'] = $this->db->get('tbl_dapil')->result_array();
+			$this->load->view('template/header');
+			$this->load->view('app/saksi', $data);
+			$this->load->view('template/footer');
+		}
+
+		function act_addsaksi(){
+
+			$config['upload_path']          = './assets/berkas';
+			$config['allowed_types']        = 'jpg|png|jpeg';
+			$config['min_size']             = 9000000;
+			$config['remove_spaces']        = false;
+			$config['encrypt_name'] 		= true;
+
+
+			$this->load->library('upload', $config);
+			if (!$this->upload->do_upload("foto")){
+				$error = array('error' => $this->upload->display_errors());
+				$this->session->set_flashdata('message', 'swal("Oops", "Ada kesalahan dalam upload gambar", "warning" );');
+				redirect('app/data_saksi');
+
+			}else{
+				$img = array('upload_data' => $this->upload->data());
+				$new_name = $img['upload_data']['file_name'];
+
+				$data = [
+					'kode_caleg' => $this->session->kode,
+					'kode_saksi' => "saksi-". rand(0, 10000),
+					'nama' => $this->input->post('nama'),
+					'alamat_saksi' => $this->input->post('alamat_saksi'),
+					'nohp' => $this->input->post('nohp'),
+					'nik' => $this->input->post('nik'),
+					'foto' => $new_name,
+					'dapil' => $this->input->post('dapil'),
+					'kec' => $this->input->post('kec'),
+					'kel' => $this->input->post('kel'),
+					'tps' => $this->input->post('tps'),
+					'username' => $this->input->post('username'),
+					'pass' => password_hash($this->input->post('pass'), PASSWORD_DEFAULT),
+				];
+
+				$this->db->insert('tbl_saksi', $data);
+				$this->session->set_flashdata('message', 'swal("Yess", "Data berhasil ditambah", "success");');
+				redirect('app/data_saksi');
+			}
+		}
+
+
+		function act_editsaksi(){
+
+			$id = $this->input->post('id');
+			$foto = $_FILES['foto']['name'];
+
+			if ($foto !== '') {
+				
+				$config['upload_path']          = './assets/berkas';
+				$config['alloweds_types']        = 'jpg|png|jpeg';
+				$config['min_size']             = 9000000;
+				$config['remove_spaces']        = false;
+				$config['encrypt_name'] 		= true;
+
+
+				$this->load->library('upload', $config);
+				if (!$this->upload->do_upload("foto")){
+					$error = array('error' => $this->upload->display_errors());
+					$this->session->set_flashdata('message', 'swal("Oops", "Ada kesalahan dalam upload gambar", "warning" );');
+					redirect('app/data_saksi');
+
+				}else{
+					$img = array('upload_data' => $this->upload->data());
+					$new_name = $img['upload_data']['file_name'];
+
+					$data = [
+						'nama' => $this->input->post('nama'),
+						'alamat_saksi' => $this->input->post('alamat_saksi'),
+						'nohp' => $this->input->post('nohp'),
+						'nik' => $this->input->post('nik'),
+						'foto' => $new_name,
+						'dapil' => $this->input->post('dapil'),
+						'kec' => $this->input->post('kec'),
+						'kel' => $this->input->post('kel'),
+						'tps' => $this->input->post('tps'),
+						'username' => $this->input->post('username'),
+						'pass' => password_hash($this->input->post('pass'), PASSWORD_DEFAULT),
+					];
+
+					$this->db->where('id', $id);
+					$this->db->update('tbl_saksi', $data);
+
+					$this->session->set_flashdata('message', 'swal("Yess", "Data berhasil diubah", "success");');
+					redirect('app/data_saksi');
+
+				}
+
+
+			}else{
+
+				$data = [
+					'nama' => $this->input->post('nama'),
+					'alamat_saksi' => $this->input->post('alamat_saksi'),
+					'nohp' => $this->input->post('nohp'),
+					'nik' => $this->input->post('nik'),
+					// 'foto' => $new_name,
+					'dapil' => $this->input->post('dapil'),
+					'kec' => $this->input->post('kec'),
+					'kel' => $this->input->post('kel'),
+					'tps' => $this->input->post('tps'),
+					'username' => $this->input->post('username'),
+					'pass' => password_hash($this->input->post('pass'), PASSWORD_DEFAULT),
+				];
+
+				$this->db->where('id', $id);
+				$this->db->update('tbl_saksi', $data);
+
+				$this->session->set_flashdata('message', 'swal("Yess", "Data berhasil diubah", "success");');
+				redirect('app/data_saksi');
+
+			}
+
+		}
+
+
+		function hapus_saksi(){
+
+			$id = $this->input->post('id');
+			$this->db->where('id', $id);
+			$this->db->delete('tbl_saksi');
+			$this->session->set_flashdata('message', 'swal("Yess", "Data berhasil dihapuss", "success");');
+			redirect('app/data_saksi');
 
 		}
 

@@ -159,5 +159,18 @@
 </script>
 
 
+<script>
+	function previewImageProfil() {
+		document.getElementById("image-previewprofil").style.display = "block";
+		var oFReader = new FileReader();
+		oFReader.readAsDataURL(document.getElementById("image-sourceprofil").files[0]);
+
+		oFReader.onload = function(oFREvent) {
+			document.getElementById("image-previewprofil").src = oFREvent.target.result;
+		};
+	};
+</script>
+
+
 </body>
 </html>
