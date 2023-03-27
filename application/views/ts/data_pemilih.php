@@ -250,7 +250,7 @@
 
 
                         ?>
-                        <form method="post" action="<?= base_url('relawan/act_editpemilih') ?>">
+                        <form method="post" action="<?= base_url('Timsukses/act_editpemilih') ?>" enctype="multipart/form-data">
                           <input type="hidden" name="id" value="<?= $data['id'] ?>">
                           <div class="form-group">
                             <label for="exampleInputEmail1">Nama Pemilih</label>
@@ -262,8 +262,8 @@
                             <select class="form-control" name="jk" >
                               <option><?= $data['jk'] ?></option>
                               <option value="">-- Pilih Jenis Kelamin --</option>
-                              <option value="L">Laki - Laki</option>
-                              <option value="P">Perempuan</option>
+                              <option>Laki - Laki</option>
+                              <option>Perempuan</option>
                             </select>
                           </div>
 
@@ -276,13 +276,6 @@
                             <label for="exampleInputEmail1">Kec</label>
                             <select class="form-control" name="kec" id="kec_pemilihedit" required>
                               <option value="<?= $kecamatan['id'] ?>"><?= $kecamatan['name'] ?></option>
-                              <option value="">-- Pilih Kecamatan --</option>
-                              <?php 
-                              foreach ($kec as $va) {
-
-                                $list = $this->db->get_where('tbl_kecamatan', ['id' => $va['wilayah']])->row_array(); ?>
-                                <option value="<?= $list['id'] ?>"><?= $list['name'] ?></option>
-                              <?php }?>
                             </select>
                           </div>
 
@@ -290,7 +283,7 @@
                             <label for="exampleInputEmail1">Kel</label>
                             <select class="form-control" name="kel" id="kel_pemilihedit" required>
                               <option value="<?= $kelurahan['id'] ?>"><?= $kelurahan['name'] ?></option>
-                              <option disabled>-- Pilih Kelurahan --</option>
+
                             </select>
                           </div>
 
@@ -315,43 +308,45 @@
 
 
                   <div class="form-group">
-                    <label for="exampleInputEmail1">Foto KTP</label>
-                    <input type="file" name="foto" class="form-control">
+                    <label for="exampleInputEmail1">Foto</label>
+                    <input type="file" name="foto_ktp" class="form-control" id="image-sourcepemilih" onchange="previewImagepemilih();"/ >
+
+                    <img id="image-previewpemilih" src="<?= base_url('assets/berkaspemilih/') ?><?= $data['foto_ktp'] ?>" alt="foto" class="img-thumbnail" style="height: 200px; width: 300px" >
                   </div>
-                </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                  <button type="submit" class="btn btn-primary">Save Change</button>
-                </div>
-              </form>
+
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save Change</button>
+                  </div>
+                </form>
+              </div>
             </div>
           </div>
-        </div>
 
-        <!-- End Modal Edit -->
-
+          <!-- End Modal Edit -->
 
 
 
 
-      <?php } ?>
+
+        <?php } ?>
 
 
-    </tbody>
-    <tfoot>
-      <tr>
-       <th>No</th>
-       <th>Nama</th>
-       <th>Kec</th>
-       <th>Kel</th>
+      </tbody>
+      <tfoot>
+        <tr>
+         <th>No</th>
+         <th>Nama</th>
+         <th>Kec</th>
+         <th>Kel</th>
 
-       <th>Alamat</th>
-       <th>Nik</th>
-       <th>Opsi</th>
-     </tr>
-   </tfoot>
- </table>
-</div>
+         <th>Alamat</th>
+         <th>Nik</th>
+         <th>Opsi</th>
+       </tr>
+     </tfoot>
+   </table>
+ </div>
 </div>
 
 </div>

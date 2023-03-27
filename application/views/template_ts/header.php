@@ -97,7 +97,7 @@
                      <?= ucfirst($this->session->username) ?>
                      <?php 
 
-                     $kode_caleg = $this->session->kode;
+                     $kode_caleg = $this->session->kode_caleg;
                      $dapil = $this->db->get_where('tbl_caleg', ['kode' => $kode_caleg])->row_array();
 
                      if ($dapil['dapil'] == 'DP-01') {
@@ -115,13 +115,7 @@
                    }
                    ?>
                    <small>
-                    <?php 
-                    if ($this->session->relawan == true) {
-                      echo "Relawan - ";
-                    }else{
-                      echo "Caleg - ";
-                    }
-                    ?>
+                    Tim sukses
                     <?= $dp ?>
 
                   </small>
@@ -135,13 +129,9 @@
                   <a href="<?= base_url('app/profil') ?>" class="btn btn-default btn-flat">Profile</a>
                 </div>
                 <div class="pull-right">
-                 <?php 
-                 if ($this->session->relawan == true) {
-                   ?>
-                   <a href="<?= base_url('login/logout_relawan') ?>" class="btn btn-default btn-flat">Sign out</a>
-                 <?php }else{ ?>
-                   <a href="<?= base_url('login/logout') ?>" class="btn btn-default btn-flat">Sign out</a>
-                 <?php } ?>
+
+                 <a href="<?= base_url('login/logout_timsukses') ?>" class="btn btn-default btn-flat">Sign out</a>
+
                </div>
              </li>
            </ul>

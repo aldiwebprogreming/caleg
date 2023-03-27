@@ -20,6 +20,11 @@
 				$this->load->view('login/home');
 			}
 
+
+			function timsukses(){
+				$this->load->view('login/timsukses');
+			}
+
 			function act_login(){
 				$username = $this->input->post('username');
 				$pass = $this->input->post('pass');
@@ -36,7 +41,7 @@
 						redirect('app/');
 					}else{
 
-						$this->session->set_flashdata('message', 'swal("Ops", "Password anda salah", "success" );');
+						$this->session->set_flashdata('message', 'swal("Ops", "Password anda salah", "error" );');
 						redirect('login');
 					}
 				}else{
@@ -73,6 +78,35 @@
 			}
 
 
+			function act_timsukses(){
+
+				$username = $this->input->post('username');
+				$pass = $this->input->post('pass');
+				$cek = $this->db->get_where('tbl_ts', ['username' => $username])->row_array();
+				if ($cek == true) {
+					
+					if (password_verify($pass, $cek['pass'])) {
+						
+						$data = [
+							'username' => $username,
+							'kode_caleg' => $cek['kode_caleg'],
+							'nama' => $cek['nama'],
+							'kode_ts' => $cek['kode_ts'],
+						];
+						$this->session->set_userdata($data);
+						redirect('Timsukses/');
+					}else{
+
+						$this->session->set_flashdata('message', 'swal("Ops", "Password anda salah", "success" );');
+						redirect('login/timsukses');
+					}
+				}else{
+					$this->session->set_flashdata('message', 'swal("Ops", "Akun anda tidak terdaftar", "error" );');
+					redirect('login/timsukses');
+				}
+			}
+
+
 			function logout(){
 
 				$this->session->unset_userdata('username');
@@ -87,5 +121,15 @@
 				$this->session->unset_userdata('relawan');
 				redirect('login/home');
 			}
-		}
+
+
+			function logout_timsukses(){
+
+				$this->session->unset_userdata('username');
+				$this->session->unset_userdata('kode_ts');
+				$this->session->unset_userdata('kode_caleg');
+				redirect('login/timsukses');
+			}
+
+		}		
 	?>

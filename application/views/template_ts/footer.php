@@ -90,31 +90,31 @@
 
 </script>
 
-<!-- <script>
-	function previewImage() {
-		document.getElementById("image-preview").style.display = "block";
+<script>
+	function previewImagepemilih() {
+		document.getElementById("image-previewpemilih").style.display = "block";
 		var oFReader = new FileReader();
-		oFReader.readAsDataURL(document.getElementById("image-source").files[0]);
+		oFReader.readAsDataURL(document.getElementById("image-sourcepemilih").files[0]);
 
 		oFReader.onload = function(oFREvent) {
-			document.getElementById("image-preview").src = oFREvent.target.result;
+			document.getElementById("image-previewpemilih").src = oFREvent.target.result;
 		};
 	};
 </script>
 
 
 <script>
-	function previewImageProfil() {
-		document.getElementById("image-previewprofil").style.display = "block";
+	function previewImageProfilTS() {
+		document.getElementById("image-previewprofilts").style.display = "block";
 		var oFReader = new FileReader();
-		oFReader.readAsDataURL(document.getElementById("image-sourceprofil").files[0]);
+		oFReader.readAsDataURL(document.getElementById("image-sourceprofilts").files[0]);
 
 		oFReader.onload = function(oFREvent) {
-			document.getElementById("image-previewprofil").src = oFREvent.target.result;
+			document.getElementById("image-previewprofilts").src = oFREvent.target.result;
 		};
 	};
 </script>
--->
+
 
 </body>
 </html>

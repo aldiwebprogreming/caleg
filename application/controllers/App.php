@@ -157,9 +157,6 @@
 				$this->db->insert('tbl_wilayah_dapil', $data);
 			};
 
-
-
-
 			$this->session->set_flashdata('message', 'swal("Yess", "Data berhasil ditambah", "success" );');
 			redirect('app/dapil');
 		}
