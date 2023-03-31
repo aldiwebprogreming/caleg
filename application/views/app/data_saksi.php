@@ -12,14 +12,14 @@
 
       <div class="box box-danger">
         <div class="box-header">
-          <h3 class="box-title">  <i class="fa fa-users"></i> Data Tim Sukses</h3>
+          <h3 class="box-title">  <i class="fa fa-users"></i> Data Saksi</h3>
 
         </div>
         <div class="box-body">
           <hr>
           <!-- Button trigger modal -->
           <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-            Tambah Tim Sukses
+            Tambah Saksi
           </button>
 
           <!-- Modal -->
@@ -27,13 +27,13 @@
             <div class="modal-dialog" role="document">
               <div class="modal-content">
                 <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalLabel"> <i class="fa fa-plus"></i> Form Tambah Tim Sukses</h5>
+                  <h5 class="modal-title" id="exampleModalLabel"> <i class="fa fa-plus"></i> Form Tambeh Saksi</h5>
                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                   </button>
                 </div>
                 <div class="modal-body">
-                  <form method="post" action="<?= base_url('app/act_addts') ?>" enctype="multipart/form-data" >
+                  <form method="post" action="<?= base_url('app/act_addsaksi') ?>" enctype="multipart/form-data" >
 
                    <div class="form-group">
                     <label for="exampleInputEmail1">Nama Tim Sukses</label>

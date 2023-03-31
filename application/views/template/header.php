@@ -196,7 +196,8 @@
             </li>
           <!--   <li><a href="<?= base_url('app/caleg') ?>"><i class="fa fa-book"></i> <span>Celeg</span></a></li>
             <li><a href="<?= base_url('app/usercaleg') ?>"><i class="fa fa-book"></i> <span>Usercaleg</span></a></li> -->
-            <li><a href="<?= base_url('app/relawan') ?>"><i class="fa fa-user"></i> <span>Data Relawan / Tim Sukses</span></a></li>
+            <li><a href="<?= base_url('app/tim_sukses') ?>"><i class="fa fa-user"></i> <span>Data Relawan / Tim Sukses</span></a></li>
+            <li><a href="<?= base_url('app/data_saksi') ?>"><i class="fa fa-user"></i> <span>Data Saksi</span></a></li>
             <li><a href="<?= base_url('app/wilayah') ?>"><i class="fa fa-map"></i> <span>Data Wilayah Suara</span></a></li>
             <li><a href="<?= base_url('app/pos') ?>"><i class="fa fa-home"></i> <span>Data Post</span></a></li>
             <li><a href="<?= base_url('app/pemilih') ?>"><i class="fa fa-users"></i> <span>Data Pemilih</span></a></li>

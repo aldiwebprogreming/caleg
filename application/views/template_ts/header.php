@@ -183,12 +183,9 @@
                 <li class="active"><a href="<?= base_url('') ?>"><i class="fa fa-circle-o"></i>Home</a></li>
                 <!--  <li><a href="index2.html"><i class="fa fa-circle-o"></i> Dashboard v2</a></li> -->
               </ul>
-              
-           <!--    <li><a href="<?= base_url('app/relawan') ?>"><i class="fa fa-user"></i> <span>Data Relawan / Tim Sukses</span></a></li>
-              <li><a href="<?= base_url('app/wilayah') ?>"><i class="fa fa-map"></i> <span>Data Wilayah Suara</span></a></li>
-              <li><a href="<?= base_url('app/pos') ?>"><i class="fa fa-home"></i> <span>Data Post</span></a></li>
-              <li><a href="<?= base_url('app/pemilih') ?>"><i class="fa fa-users"></i> <span>Data Pemilih</span></a></li>
-              <li><a href="<?= base_url('app/grafig_pemilih') ?>"><i class="fa fa-chart-simple"></i> <span>Grafig Pemilih</span></a></li> -->
+
+              <li><a href="<?= base_url('timsukses/data_pemilih') ?>"><i class="fa fa-users"></i> <span>Data Pemilih</span></a></li>
+              <!--    <li><a href="<?= base_url('app/grafig_pemilih') ?>"><i class="fa fa-chart-simple"></i> <span>Grafig Pemilih</span></a></li> -->
 
             </ul>
           </section>

@@ -464,6 +464,16 @@
 			$this->load->view('template/footer');
 		}
 
+		function pemilih_ts($ts){	
+
+			$data['pemilih'] = $this->db->get_where('tbl_pemilih', ['kode_ts' => $ts])->result_array();
+			$data['ts'] = $this->db->get_where('tbl_ts', ['kode_ts' => $ts])->row_array();
+
+			$this->load->view('template/header');
+			$this->load->view('app/pemilih_ts', $data);
+			$this->load->view('template/footer');
+		}
+
 		function act_addpemilih(){
 			$kode = $this->session->kode;
 			$data = [
@@ -608,6 +618,14 @@
 			$this->load->view('app/data_ts', $data);
 			$this->load->view('template/footer'); 
 		}
+
+		// function data_saksi(){
+		// 	$data['ts'] = $this->db->get_where('tbl_saksi', ['kode_caleg' => $this->session->kode])->result_array();
+		// 	$data['dapil'] = $this->db->get('tbl_dapil')->result_array();
+		// 	$this->load->view('template/header');
+		// 	$this->load->view('app/data_saksi', $data);
+		// 	$this->load->view('template/footer'); 
+		// }
 
 
 		function gettps(){

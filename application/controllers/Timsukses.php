@@ -12,9 +12,11 @@
 		}
 
 		function index(){
+			$data['jml_pemilih'] = $this->db->get_where('tbl_pemilih', ['kode_ts' => $this->session->kode_ts])->num_rows();
+			$data['wk'] = $this->db->get_where('tbl_ts', ['kode_ts' => $this->session->kode_ts])->row_array();
 
 			$this->load->view('template_ts/header');
-			$this->load->view('ts/index');
+			$this->load->view('ts/index', $data);
 			$this->load->view('template_ts/footer');
 		}
 
@@ -26,7 +28,7 @@
 
 			$data['kec'] = $this->db->get_where('tbl_wilayah_dapil', ['kode_dapil' => $caleg['dapil']])->result_array();
 
-			$kode_ts = 'TS-5658';
+			$kode_ts = $this->session->kode_ts;
 
 			$data['ts'] = $this->db->get_where('tbl_ts', ['kode_ts' => $kode_ts])->row_array();
 			$data['kec'] = $this->db->get_where('tbl_kecamatan', ['id' => $data['ts']['kec']])->row_array();
@@ -57,13 +59,13 @@
 				$img = array('upload_data' => $this->upload->data());
 				$new_name = $img['upload_data']['file_name'];
 
-				$kode = $this->session->kode;
+				$kode = $this->session->kode_ts;
 				$data = [
 					'kode_caleg' => 'CL-2802',                                                                
 					'nama_pemilih' =>  $this->input->post('nama'),
 					'jk' =>  $this->input->post('jk'),
 					'umur' =>  $this->input->post('umur'),
-					'kode_ts' => '',
+					'kode_ts' => $kode,
 					'kec' =>  $this->input->post('kec'),
 					'kel' =>  $this->input->post('kel'),
 					'tps' => $this->input->post('tps'),
@@ -221,5 +223,21 @@
 			}
 
 		}
+
+		// function data_pemilih(){
+
+		// 	$data['pemilih'] = $this->db->get_where('tbl_pemilih', ['kode_relawan' => $this->session->kode_ts])->result_array();
+		// 	$this->db->join('tbl_usercaleg', 'tbl_caleg.kode = tbl_usercaleg.kode_caleg');
+		// 	$this->db->from('tbl_caleg');
+		// 	$caleg = $this->db->get()->row_array();
+
+		// 	$data['kec'] = $this->db->get_where('tbl_wilayah_dapil', ['kode_dapil' => $caleg['dapil']])->result_array();
+
+
+		// 	$this->load->view('template_ts/header');
+		// 	$this->load->view('ts/data_pemilih', $data);		
+		// 	$this->load->view('template_ts/footer');
+
+		// }
 	}
 ?>

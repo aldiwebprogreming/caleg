@@ -8,80 +8,72 @@
       <!-- small box -->
       <div class="small-box bg-aqua">
         <div class="inner">
-          <h3>34</h3>
+          <h3><?= $jml_pemilih ?></h3>
 
-          <p>Jumlah Seluruh Suara </p>
+          <p>Jumlah suara yang di proleh</p>
         </div>
         <div class="icon">
           <i class="ion ion-bag"></i>
         </div>
-        <a href="<?= base_url('app/pemilih') ?>" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+        <!--  <a href="<?= base_url('app/pemilih') ?>" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a> -->
       </div>
     </div>
     <!-- ./col -->
-    <?php if($this->session->relawan == null){ ?>
-      <div class="col-lg-3 col-xs-6">
-        <!-- small box -->
-        <div class="small-box bg-green">
-          <div class="inner">
-            <h3>343</h3>
 
-            <p>Relawan</p>
-          </div>
-          <div class="icon">
-            <i class="ion ion-person"></i>
-          </div>
-          <a href="<?= base_url('app/relawan') ?>" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+    <div class="col-lg-3 col-xs-6">
+      <!-- small box -->
+      <div class="small-box bg-green">
+        <div class="inner">
+          <h3>TPS-<?= $wk['tps'] ?></h3>
+
+          <p>Wilayah Kerja</p>
         </div>
-      </div>
-    <?php }else{ ?>
-
-      <div class="col-lg-3 col-xs-6">
-        <!-- small box -->
-        <div class="small-box bg-green">
-          <div class="inner">
-            <h3>33</h3>
-
-            <p>Suara Dikumpulkan Anda</p>
-          </div>
-          <div class="icon">
-            <i class="ion ion-person"></i>
-          </div>
-          <a href="<?= base_url('app/relawan') ?>" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+        <div class="icon">
+          <i class="ion ion-person"></i>
         </div>
+        <!-- <a href="<?= base_url('app/relawan') ?>" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a> -->
       </div>
-    <?php } ?>
+    </div>
+
+    <?php 
+
+    $kel = $this->db->get_where('tbl_kelurahan', ['id' => $wk['kel']])->row_array();
+    $kec = $this->db->get_where('tbl_kecamatan', ['id' => $wk['kec']])->row_array();
+
+    ?>
+
+
+    <div class="col-lg-3 col-xs-6">
+      <!-- small box -->
+      <div class="small-box bg-green">
+        <div class="inner">
+          <h4><?= $kel['name'] ?></h4>
+
+          <p>Kelurahan</p>
+        </div>
+        <div class="icon">
+          <i class="ion ion-person"></i>
+        </div>
+
+      </div>
+    </div>
+
     <!-- ./col -->
     <div class="col-lg-3 col-xs-6">
       <!-- small box -->
       <div class="small-box bg-yellow">
         <div class="inner">
-          <h3>33</h3>
-
-          <p>POS</p>
-        </div>
-        <div class="icon">
-          <i class="ion ion-person-add"></i>
-        </div>
-        <a href="<?= base_url('app/pos') ?>" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
-      </div>
-    </div>
-    <!-- ./col -->
-    <div class="col-lg-3 col-xs-6">
-      <!-- small box -->
-      <div class="small-box bg-red">
-        <div class="inner">
-          <h3>5</h3>
+          <h4><?= $kec['name'] ?></h4>
 
           <p>Kecamatan</p>
         </div>
         <div class="icon">
-          <i class="ion ion-pie-graph"></i>
+          <i class="ion ion-person-add"></i>
         </div>
-        <a href="<?= base_url('app/wilayah') ?>" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+
       </div>
     </div>
-    <!-- ./col -->
+    
   </div>
   <!-- /.row -->
   <!-- Main row -->
@@ -97,7 +89,7 @@
       <!-- /.box (chat box) -->
 
       <!-- TO DO List -->
-      
+
       <!-- /.box -->
 
       <!-- quick email widget -->
