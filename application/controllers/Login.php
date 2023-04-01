@@ -25,6 +25,11 @@
 				$this->load->view('login/timsukses');
 			}
 
+			function saksi(){
+				$this->load->view('login/saksi');
+			}
+
+
 			function act_login(){
 				$username = $this->input->post('username');
 				$pass = $this->input->post('pass');
@@ -106,6 +111,35 @@
 				}
 			}
 
+			function act_saksi(){
+
+				$username = $this->input->post('username');
+				$pass = $this->input->post('pass');
+				$cek = $this->db->get_where('tbl_saksi', ['username' => $username])->row_array();
+				if ($cek == true) {
+					
+					if (password_verify($pass, $cek['pass'])) {
+						
+						$data = [
+							'username' => $username,
+							'kode_caleg' => $cek['kode_caleg'],
+							'nama' => $cek['nama'],
+							'kode_saksi' => $cek['kode_ts'],
+							'role' => 'saksi',
+						];
+						$this->session->set_userdata($data);
+						redirect('Timsukses/');
+					}else{
+
+						$this->session->set_flashdata('message', 'swal("Ops", "Password anda salah", "success" );');
+						redirect('login/timsukses');
+					}
+				}else{
+					$this->session->set_flashdata('message', 'swal("Ops", "Akun anda tidak terdaftar", "error" );');
+					redirect('login/timsukses');
+				}
+			}
+
 
 			function logout(){
 
@@ -127,6 +161,15 @@
 
 				$this->session->unset_userdata('username');
 				$this->session->unset_userdata('kode_ts');
+				$this->session->unset_userdata('kode_caleg');
+				redirect('login/timsukses');
+			}
+
+			function logout_saksi(){
+
+				$this->session->unset_userdata('username');
+				$this->session->unset_userdata('role');
+				$this->session->unset_userdata('kode_saksi');
 				$this->session->unset_userdata('kode_caleg');
 				redirect('login/timsukses');
 			}
