@@ -31,6 +31,7 @@
 
 
 			function act_login(){
+				
 				$username = $this->input->post('username');
 				$pass = $this->input->post('pass');
 				$cek = $this->db->get_where('tbl_usercaleg', ['username' => $username])->row_array();
@@ -124,19 +125,19 @@
 							'username' => $username,
 							'kode_caleg' => $cek['kode_caleg'],
 							'nama' => $cek['nama'],
-							'kode_saksi' => $cek['kode_ts'],
+							'kode_saksi' => $cek['kode_saksi'],
 							'role' => 'saksi',
 						];
 						$this->session->set_userdata($data);
-						redirect('Timsukses/');
+						redirect('saksi/');
 					}else{
 
 						$this->session->set_flashdata('message', 'swal("Ops", "Password anda salah", "success" );');
-						redirect('login/timsukses');
+						redirect('login/saksi');
 					}
 				}else{
 					$this->session->set_flashdata('message', 'swal("Ops", "Akun anda tidak terdaftar", "error" );');
-					redirect('login/timsukses');
+					redirect('login/saksi');
 				}
 			}
 

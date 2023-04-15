@@ -71,72 +71,33 @@
               <!-- User Account: style can be found in dropdown.less -->
               <li class="dropdown user user-menu">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                  <?php   
-                  $profil = $this->db->get_where('tbl_profil', ['kode_caleg' => $this->session->kode])->row_array();
-                  if ($profil == null) {
-                    ?>
-                    <img src="<?= base_url('assets/') ?>dist/img/caleg.png" class="user-image" alt="User Image">
-                  <?php   }else{ ?>
-                    <img src="<?= base_url('assets/') ?>profil/<?= $profil['foto'] ?>" class="user-image" alt="<?= $profil['foto'] ?>">
-                  <?php   } ?>
-                  <span class="hidden-xs"> <?=  ucfirst($this->session->username) ?></span>
+
+                  <img src="<?= base_url('assets/') ?>dist/img/caleg.png" class="user-image" alt="User Image">
+
+                  <span class="hidden-xs">SAKSI</span>
                 </a>
                 <ul class="dropdown-menu">
                   <!-- User image -->
                   <li class="user-header">
-                   <?php 
-                   if ($profil == null) {
-                     ?>
-                     <img src="<?= base_url('assets/') ?>dist/img/caleg.png" class="img-circle" alt="User Image">
-                   <?php   }else{ ?>
-                     <img src="<?= base_url('assets/') ?>profil/<?= $profil['foto'] ?>" class="img-circle" alt="<?= $profil['foto'] ?>">
-                   <?php   } ?>
 
 
-                   <p>
-                     <?= ucfirst($this->session->username) ?>
-                     <?php 
+                  </li>
+                  <!-- Menu Body -->
 
-                     $kode_caleg = $this->session->kode_caleg;
-                     $dapil = $this->db->get_where('tbl_caleg', ['kode' => $kode_caleg])->row_array();
+                  <!-- Menu Footer-->
+                  <li class="user-footer">
+                    <div class="pull-left">
+                      <!--   <a href="<?= base_url('app/profil') ?>" class="btn btn-default btn-flat">Profile</a> -->
+                    </div>
+                    <div class="pull-right">
 
-                     if ($dapil['dapil'] == 'DP-01') {
-                      $dp = 'Dapil 1';
-                    }elseif ($dapil['dapil'] == 'DP-02') {
-                      $dp = 'Dapil 2';
-                    }elseif ($dapil['dapil'] == 'DP-03') {
-                      $dp = 'Dapil 3';
-                    }elseif ($dapil['dapil'] == 'DP-04') {
-                      $dp = 'Dapil 4';
-                    }elseif ($dapil['dapil'] == 'DP-05') {
-                      $dp = 'Dapil 5';
-                    }else{
-                     $dp = 'Dapil 6';
-                   }
-                   ?>
-                   <small>
-                    Tim sukses
-                    <?= $dp ?>
+                     <a href="<?= base_url('login/logout_saksi') ?>" class="btn btn-default btn-flat">Sign out</a>
 
-                  </small>
-                </p>
-              </li>
-              <!-- Menu Body -->
-
-              <!-- Menu Footer-->
-              <li class="user-footer">
-                <div class="pull-left">
-                  <a href="<?= base_url('app/profil') ?>" class="btn btn-default btn-flat">Profile</a>
-                </div>
-                <div class="pull-right">
-
-                 <a href="<?= base_url('login/logout_timsukses') ?>" class="btn btn-default btn-flat">Sign out</a>
-
-               </div>
+                   </div>
+                 </li>
+               </ul>
              </li>
-           </ul>
-         </li>
-         <!-- Control Sidebar Toggle Button -->
+             <!-- Control Sidebar Toggle Button -->
               <!-- <li>
                 <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
               </li> -->
@@ -154,7 +115,7 @@
               <img src="<?= base_url('assets/') ?>dist/img/caleg.png" class="img-circle" alt="User Image">
             </div>
             <div class="pull-left info">
-              <p><?= ucfirst($this->session->username) ?></p>
+              <p>Saksi</p>
               <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
             </div>
           </div>
@@ -184,7 +145,7 @@
                 <!--  <li><a href="index2.html"><i class="fa fa-circle-o"></i> Dashboard v2</a></li> -->
               </ul>
 
-              <li><a href="<?= base_url('timsukses/data_pemilih') ?>"><i class="fa fa-users"></i> <span>Data Pemilih</span></a></li>
+              <li><a href="<?= base_url('saksi/tambah_suara') ?>"><i class="fa fa-users"></i> <span>Data Suara</span></a></li>
               <!--    <li><a href="<?= base_url('app/grafig_pemilih') ?>"><i class="fa fa-chart-simple"></i> <span>Grafig Pemilih</span></a></li> -->
 
             </ul>
